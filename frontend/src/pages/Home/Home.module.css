@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.logostyle {
+    background-color: #4267B2;
+    color: white;
+    padding: 15px;
+}
+.logostyle h1 {
+    margin-top: 10px;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+  }
+  
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .linkcontainer {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .linkcontainer a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: white;
+    background-color: #00BFFF ;
+    padding: 10px 20px;
+  }
+  

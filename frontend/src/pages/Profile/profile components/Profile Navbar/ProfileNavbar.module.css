@@ -1,0 +1,40 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .navbar a {
+    margin-right: 20px;
+    color: #333;
+    text-decoration: none;
+    margin-left: 30px;
+  }
+  
+  .navbar input {
+    padding: 5px;
+    margin-right: 10px;
+  }
+  
+  .navbar button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  .navbar a:hover{
+    color: #007bff;
+
+  }
+  
+.navbar button:last-child {
+  margin-left: auto; 
+}
+@media screen and (width: 412px) {
+  .navbar input  {
+      display: none;
+  }
+}
