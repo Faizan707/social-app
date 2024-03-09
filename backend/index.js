@@ -30,23 +30,31 @@ app.post('/friendRequests', async (req, res) => {
     const { sender, receiver } = req.body;
     const friendRequest = new FriendRequest({ sender, receiver });
     await friendRequest.save();
-    res.status(201).json(friendRequest);
+    res.status(200).json(friendRequest);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server Error' });
   }
 });
 
+
+
+
 // Get all FriendRequests
-app.get('/friendRequests', async (req, res) => {
+app.get('/friendRequests/:id', async (req, res) => {
   try {
-    const friendRequests = await FriendRequest.find().populate('sender receiver');
+    const { id } = req.params;
+
+    const friendRequests = await FriendRequest.find({ receiver: id }).populate('sender receiver');
     res.json(friendRequests);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server Error' });
   }
 });
+
+
+
 const upload = multer({ storage: storage });
 
 

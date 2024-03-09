@@ -1,40 +1,38 @@
 import React, { useState } from 'react';
 import { CgProfile } from "react-icons/cg";
-import { FaHome } from "react-icons/fa";
-import { FaSearch } from "react-icons/fa";
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { FaUserFriends } from "react-icons/fa";
-import styles from './ProfileNavbar.module.css';
-import { useUser } from '../../../../context/UserContext';
+import { FaHome, FaSearch, FaUserFriends } from "react-icons/fa";
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import styles from './ProfileNavbar.module.css';
+import { useUser } from '../../../../context/UserContext'; 
 
 function ProfileNavbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchedUsers, setSearchedUsers] = useState([]);
-  const { users } = useUser(); // Access currentUser from UserContext
+  const { userData, loggedInUser } = useUser(); // Get userData from context
   const navigate = useNavigate();
-  const { name, userId } = useParams(); // Renaming to avoid conflict with 'name' variable
   
   const handleNavigate = () => {
-    // Add logout logic here
     navigate("/login");
   };
 
   const handleSearch = () => {
-    const filteredUsers = users.filter(user =>
+    const filteredUsers = userData.filter(user =>
       user.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     if (filteredUsers.length === 0) {
       alert('No users found with the given name. Please try again.');
-    } else {
+    }else if(searchQuery.toLowerCase()===loggedInUser.name.toLowerCase()){
+      alert("you search yourself ")
+    }
+     else {
       alert("User found! Click to see him on your profile and add him.");
-      // Add user ID to each filtered user object
       const usersWithId = filteredUsers.map(user => ({
         ...user,
-        id: user._id // Assuming user ID is stored in the _id property
+        id: user._id 
       }));
-      setSearchedUsers(usersWithId); // Update to set an array of users with IDs
+      setSearchedUsers(usersWithId); 
       setSearchQuery("");
     }
   };
@@ -42,13 +40,17 @@ function ProfileNavbar() {
   const handleAddFriend = async (receiverId) => {
     try {
       // Send a request to create a friend request
-      await axios.post('/friendRequests', { sender: userId, receiver: receiverId });
+      await axios.post('http://localhost:3002/friendRequests', { sender: loggedInUser.id, receiver: receiverId }); 
+      await axios.post('http://localhost:3002/notifications',{sender: loggedInUser.id,receiver:receiverId ,ReceiverMessage:"You have received a Friend Request"})
       alert('Friend request sent successfully!');
     } catch (error) {
       console.error('Error sending friend request:', error);
       alert('Failed to send friend request. Please try again.');
     }
   };
+
+  // Log loggedInUser.id
+  console.log('Logged In User ID:', loggedInUser.id);
 
   return (
     <>
@@ -61,13 +63,13 @@ function ProfileNavbar() {
         />
         <button onClick={handleSearch}><FaSearch /></button>
         <Link to="/profile"><CgProfile /> Profile</Link>
-        <Link to="/home"><FaHome /> Home</Link>
+        <Link ><FaHome /> Home</Link>
         <Link to="/friend-requests"><FaUserFriends /> Friends requests</Link>
         <button onClick={handleNavigate}>Logout</button>
       </nav>
 
       <div>
-        <h1>Welcome to your profile {name}</h1>
+        <h1>Welcome to your profile {loggedInUser.name}</h1> 
         {searchedUsers.length > 0 && (
           <>
             <h2>Search Results:</h2>

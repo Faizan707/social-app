@@ -28,10 +28,7 @@ const userSchema = new mongoose.Schema({
   country: {
     type: String
   },
-  friendRequests: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'FriendRequest'
-  }]
+  
 });
 
 const User = mongoose.model('User', userSchema);

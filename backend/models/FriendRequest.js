@@ -17,6 +17,7 @@ const friendRequestSchema = new Schema({
     enum: ['pending', 'accepted', 'rejected'],
     default: 'pending'
   },
+  
 }, { timestamps: true });
 
 const FriendRequest = mongoose.model('FriendRequest', friendRequestSchema);
