@@ -1,38 +1,24 @@
-/* FriendsRequest.module.css */
+.friendrequestcontainer {
+  margin: 20px;
+}
 
-.friendRequestContainer {
-    margin-top: 20px;
-  }
-  
-  .friendRequestList {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .friendRequestItem {
-    margin-bottom: 10px;
-  }
-  
-  .friendRequestButton {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .friendRequestButton:hover {
-    background-color: #0056b3;
-  }
-  
-  .acceptedFriendsList {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .acceptedFriendItem {
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-  
+.friendrequestitem {
+  list-style: none;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.friendrequestitem button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.friendrequestitem button:hover {
+  background-color: #0056b3;
+}

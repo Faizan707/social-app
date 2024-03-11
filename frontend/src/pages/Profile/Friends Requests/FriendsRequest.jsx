@@ -1,42 +1,76 @@
-import React, { useEffect, useState } from 'react'
-import { useUser } from '../../../context/UserContext'
-import axios from 'axios'
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { useUser } from '../../../context/UserContext';
+import styles from './FriendsRequests.module.css'; 
+
 function FriendsRequest() {
-  const [requests, setRequests] = useState([]);
+  const [friendRequests, setFriendRequests] = useState([]);
   const { loggedInUser } = useUser();
 
-  console.log("loggedInUser:", loggedInUser);
+  useEffect(() => {
+    const fetchRequestApi = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3002/friendRequests/${loggedInUser.id}`);
+        setFriendRequests(response.data.friendRequests);
+      } catch (error) {
+        console.error("Error fetching friend requests:", error);
+      }
+    };
 
-  const fetchRequestApi = async () => {
+    fetchRequestApi();
+  }, [loggedInUser.id]);
+
+  const handleAcceptFriendRequest = async (requestId, senderId, senderName) => {
     try {
-      const response = await axios.get(`http://localhost:3002/friendRequests/${loggedInUser.id}`);
-      setRequests(response.data);
-      console.log("requests:", response.data);
+      console.log("SenderName in handleAcceptFriendRequest:", senderName);
+      const response = await axios.put(`http://localhost:3002/friendRequests/${requestId}`, { status: "accept" });
+      if (response.data.success) {
+        alert('Friend request accepted successfully!');
+        setFriendRequests(prevRequests =>
+          prevRequests.filter(request => request._id !== requestId)
+        );
+        await sendNotification(senderId, senderName);
+      } else {
+        alert('Failed to accept friend request');
+      }
     } catch (error) {
-      console.error("Error fetching requests:", error);
+      console.error("Error accepting friend request:", error);
+      alert('Failed to accept friend request');
     }
   };
-  useEffect(() => {
-    
-      fetchRequestApi();
-    
-  }, []);
+
+  const sendNotification = async (senderId, senderName) => {
+    try {
+      
+      const response = await axios.post("http://localhost:3002/notifications", {
+        senderName: loggedInUser.name,
+        receiver: senderId,
+        message: `Your friend request to ${loggedInUser.name} has been accepted by ${senderName}.`
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error sending notification:", error);
+    }
+  };
+  
   return (
-    <div>
-     
-     <h1>Friend Requests</h1>
+    <div className={styles.friendrequestcontainer}>
+      <h1>Friend Requests:</h1>
       <ul>
-        {/* Map over the requests array and render each item */}
-        {requests.map(request => (
-          <li key={request._id}>
-            <p>Sender: {request.sender.name}</p>
-            <p>Status: {request.status}</p>
-            <button>Accept</button>
+        {friendRequests.map((request) => (
+          <li key={request._id} className={styles.friendrequestitem}>
+            Sender: {request.sender.name}
+            Status: {request.status}
+            {request.status === "pending" && (
+              <button onClick={() => handleAcceptFriendRequest(request._id, request.sender._id, request.sender.name)}>
+                Accept
+              </button>
+            )}
           </li>
         ))}
       </ul>
     </div>
-  )
+  );
 }
 
-export default FriendsRequest
+export default FriendsRequest;

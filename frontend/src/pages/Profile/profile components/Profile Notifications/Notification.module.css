@@ -1,0 +1,53 @@
+.container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 400px; /* Adjust as needed */
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .header h2 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+  
+  .notifications {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .notification {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .notification p {
+    margin: 0;
+  }
+  
+  .notificationclosebutton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .notificationclosebutton:hover {
+    background-color: #0056b3;
+  }
+  

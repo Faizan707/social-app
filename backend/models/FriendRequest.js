@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
@@ -16,8 +17,7 @@ const friendRequestSchema = new Schema({
     type: String,
     enum: ['pending', 'accepted', 'rejected'],
     default: 'pending'
-  },
-  
+  }  
 }, { timestamps: true });
 
 const FriendRequest = mongoose.model('FriendRequest', friendRequestSchema);

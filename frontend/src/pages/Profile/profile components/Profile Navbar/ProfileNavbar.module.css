@@ -1,7 +1,7 @@
 .navbar {
     display: flex;
     align-items: center;
-    background-color: #f0f0f0;
+    background-color: white;
     padding: 10px;
     border-bottom: 1px solid #ccc;
   }
@@ -16,15 +16,79 @@
   .navbar input {
     padding: 5px;
     margin-right: 10px;
+    border-radius: 20px;
   }
   
-  .navbar button {
-    padding: 5px 10px;
+  .logoutbutton {
     background-color: #007bff;
-    color: #fff;
+    padding: 10px 20px;
+    color: white;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-  }
+    font-size: 1rem;
+}
+
+.logoutbutton:hover {
+    background-color: #0056b3; 
+}
+.notificationbutton {
+  position: relative; 
+}
+.notificationCount {
+  position: absolute;
+  top: -5px; 
+  right: -5px;
+  background-color: red; 
+  color: white; 
+  border-radius: 50%;
+  padding: 5px; 
+  font-size: 12px; 
+}
+
+.notificationbutton {
+  background-color: lightgray;
+  padding: 10px 20px;
+  color: black;
+  border: none;
+  border-radius: 50px; 
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 50%;
+}
+.searchButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  padding: 10px 20px; /* Corrected comma to space */
+  cursor: pointer; /* Add cursor pointer on hover */
+  transition: background-color 0.3s ease; /* Add smooth transition effect */
+}
+.addFriendButton{
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  padding: 10px 10px; /* Corrected comma to space */
+  cursor: pointer;
+  margin-left: 20px; 
+}
+
+.searchButton:hover {
+  background-color: #0056b3; /* Darker shade of blue on hover */
+}
+
+.searchButton:focus {
+  outline: none; /* Remove default focus outline */
+}
+
+
+.logoutbutton:hover {
+  background-color: #0056b3; 
+}
+
+
   .navbar a:hover{
     color: #007bff;
 
@@ -36,5 +100,14 @@
 @media screen and (width: 412px) {
   .navbar input  {
       display: none;
+  }
+  
+  .notificationbutton{
+    margin-left: 0;
+      font-size: 10px;
+      margin-right: 10px;
+  }
+  .navbar a{
+    margin-right: 0;
   }
 }
